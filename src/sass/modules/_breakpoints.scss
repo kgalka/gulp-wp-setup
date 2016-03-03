@@ -1,0 +1,22 @@
+// === RWD breakpoints. You can adjust these values to your design. === //
+$mobile: 480px;
+$tabletH: 768px;
+$tabletW: 992px;
+$desktop: 1225px;
+$retina: 1.5;  // standard retina > 1.5x
+$retina-hd: 2.5; // hd retina > 2.5x
+
+// === Breakpoints mixin === //
+@mixin breakpoint($rule) {
+    @if ($rule == $retina or $rule == $retina-hd) {
+        @media only screen and (min-resolution : #{$retina*96}), (-webkit-min-device-pixel-ratio : #{$retina}) {
+            @content;
+        }   
+    }
+    @else {
+        @media only screen and (min-width: #{$rule}) {
+            @content;
+        }  
+    }
+}
+

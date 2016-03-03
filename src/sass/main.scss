@@ -1,0 +1,13 @@
+
+// === The modules directory is reserved for Sass code that doesn't cause Sass to actually output CSS. === //
+// === Things like mixin declarations, functions, and variables.									   === //
+@import 'modules/breakpoints';
+
+// === The partials directory is where all the parts of actual styling is stored. === //
+@import 'partials/reset';
+@import 'partials/typography';
+@import 'partials/base';
+
+// === The vendor directory is for third-party CSS. === //
+// === Don't edit those files. === //
+// @import 'vendor/...'
