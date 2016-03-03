@@ -1,7 +1,6 @@
-'use strict';
+var THEME_NAME = 'theme';
 
-// Set your custom theme name
-var themeName = 'theme';
+'use strict';
 
 	var gulp = require('gulp'),
 	  concat = require('gulp-concat'),
@@ -14,11 +13,11 @@ autoprefixer = require('gulp-autoprefixer'),
 
 gulp.task('copyFiles', function() {
 	gulp.src('src/templates/**/*')
-		.pipe(gulp.dest(themeName + '/'));
+		.pipe(gulp.dest(THEME_NAME + '/'));
 	gulp.src('src/images/**/*')
-		.pipe(gulp.dest(themeName + '/'));	
+		.pipe(gulp.dest(THEME_NAME + '/images'));	
 	gulp.src('src/fonts/**/*')
-		.pipe(gulp.dest(themeName + '/'));		
+		.pipe(gulp.dest(THEME_NAME + '/fonts'));		
 });
 
 gulp.task('concatScripts', function() {
@@ -35,7 +34,7 @@ gulp.task('minifyScripts', ['concatScripts'], function() {
 		// .pipe(uglify())
 		// .pipe(maps.write('./'))
 		.pipe(rename('main.min.js'))
-		.pipe(gulp.dest(themeName + '/js'));
+		.pipe(gulp.dest(THEME_NAME + '/js'));
 });
 
 gulp.task('compileSass', function() {
@@ -50,7 +49,7 @@ gulp.task('compileSass', function() {
 		}))
 		.pipe(rename('main.min.css'))
 		.pipe(maps.write('./'))
-		.pipe(gulp.dest(themeName + '/css'))
+		.pipe(gulp.dest(THEME_NAME + '/css'))
 });
 
 gulp.task('watchFiles', function() {
@@ -60,18 +59,18 @@ gulp.task('watchFiles', function() {
 });
 
 gulp.task('clean', function() {
-	gulp.src([themeName, 'wordpress/wp-content/themes/' + themeName])
+	gulp.src([THEME_NAME, 'wordpress/wp-content/themes/' + THEME_NAME])
 		.pipe(clean({force : true}));
 });
 
 gulp.task('build', ['copyFiles', 'minifyScripts', 'compileSass'], function(){
-	return gulp.src(['/css/main.min.*', '/js/main.min.*'], { base: themeName})
-		.pipe(gulp.dest(themeName))
+	return gulp.src(['/css/main.min.*', '/js/main.min.*'], { base: THEME_NAME})
+		.pipe(gulp.dest(THEME_NAME))
 });
 
 gulp.task('wp-theme', ['build'], function () {
-	gulp.src(themeName + '/**/*')
-		.pipe(gulp.dest('wordpress/wp-content/themes/' + themeName + '/'));	
+	gulp.src(THEME_NAME + '/**/*')
+		.pipe(gulp.dest('wordpress/wp-content/themes/' + THEME_NAME + '/'));	
 });
 
 gulp.task('default', ['wp-theme', 'watchFiles'], function() {
